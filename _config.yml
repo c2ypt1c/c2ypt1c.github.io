@@ -1,0 +1,11 @@
+# Site settings
+title: c2ypt1c's Security Research Blog
+email: c2ypt1c@gmail.com
+description:
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://yourdomain.com" # the base hostname & protocol for your site
+twitter_username: pb1ankenship
+github_username:  c2ypt1c
+
+# Build settings
+markdown: kramdown
