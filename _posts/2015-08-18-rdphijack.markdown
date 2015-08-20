@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  MS15-82 RDP DLL Hijack Analysis
+title:  MS15-082 RDP DLL Hijack Analysis
 date:   2015-08-18 07:53:30
 categories: jekyll update
 ---
