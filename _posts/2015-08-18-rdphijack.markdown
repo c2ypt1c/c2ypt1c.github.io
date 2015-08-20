@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  MS15-83 RDP DLL Hijack Analysis
+title:  MS15-82 RDP DLL Hijack Analysis
 date:   2015-08-18 07:53:30
 categories: jekyll update
 ---
-Earlier this month, Microsoft issued an update for RDP (MS15-082) which addresses two vulnerabilities. One is caused by a DLL Hijacking flaw, in which RDP insecurely loads certain DLL files. This type of vulnerability hit the security scene in 2010, when Metasploit founder HD Moore released a detection tool specifically used for auditing DLL Hijacking vulnerabilities: [Exploiting DLL Hijacking Flaws](https://community.rapid7.com/community/metasploit/blog/2010/08/22/exploiting-dll-hijacking-flaws)
+Earlier this month, Microsoft issued an update for RDP [MS15-082](https://technet.microsoft.com/en-us/library/security/MS15-082) which addresses two vulnerabilities. One is caused by a DLL Hijacking flaw, in which RDP insecurely loads certain DLL files. This type of vulnerability hit the security scene in 2010, when Metasploit founder HD Moore released a detection tool specifically used for auditing DLL Hijacking vulnerabilities: [Exploiting DLL Hijacking Flaws](https://community.rapid7.com/community/metasploit/blog/2010/08/22/exploiting-dll-hijacking-flaws)
 
 Fast-forward five years and we’re still seeing the effects of this class of vulnerability. The details surrounding CVE-2015-2473 are fairly scarce with Microsoft providing very limited information so we’ll need to dig deeper to see which DLL is affected and how it can be used to execute arbitrary code…
 
@@ -16,7 +16,7 @@ Using Diaphora, we can perform a binary diff against the new and old versions of
 
 ![rdpdiff](/images/diffratio.JPG)
 
-We see changes to functions dealing with encryption and certificates (no doubt from the other vulnerability accompanying MS15-083), however CDwmCoreAPI::Init seems to be the one we’re after.
+We see changes to functions dealing with encryption and certificates (no doubt from the other vulnerability accompanying MS15-082), however CDwmCoreAPI::Init seems to be the one we’re after.
 
 
 
