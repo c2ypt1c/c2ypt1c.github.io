@@ -14,24 +14,28 @@ Using Diaphora, we can perform a binary diff against the new and old versions of
 
 
 
-![rdpdiff](/images/diffratio.jpg)
+![rdpdiff](/images/diffratio.JPG)
+
 We see changes to functions dealing with encryption and certificates (no doubt from the other vulnerability accompanying MS15-083), however CDwmCoreAPI::Init seems to be the one we’re after.
 
 
 
-![diffasm](/images/asmdiff.jpg)
+![diffasm](/images/asmdiff.JPG)
+
 Diffing the assembly, we see that the old mstscax.dll (highlighted in red) utilized the LoadLibraryW function on dwmcore.dll! This surely looks to be the vulnerable piece of code. Looking at the patched code (highlighted in green), a new subroutine is called on line 12 (call sub_2D32270E), in place of LoadLibraryW.
 
 
 
-![sysdir](/images/getsysdir.jpg)
+![sysdir](/images/getsysdir.JPG)
+
 Digging into this new subroutine, we see a call to GetSystemDirectoryW, which is used to retrieve…you guessed it…the system directory. So, instead of loading dwmcore.dll from a potentially vulnerable location, this subroutine ensures that the system directory is used (such as C:\Windows\System32).
 
 We now know that the DLL to hijack is dwmcore.dll, which mstscax.dll loads multiple functions from using GetProcAddress.
 
 
 
-![funcload](/images/funcload.jpg)
+![funcload](/images/funcload.JPG)
+
 DwmCoreAPI::Init handles all of the function loading, and once we compile a list (of all loaded functions from dwmcore.dll), we’re ready to write our malicious DLL file.
 
 {% highlight cpp %}
@@ -73,14 +77,14 @@ Microsoft mentions “an attacker would first have to place a specially crafted 
 
 
 
-![rdpclient](/images/rdp_client_save.jpg)
+![rdpclient](/images/rdp_client_save.JPG)
 
 Through the client
 
 
 
 
-![remoteapp](/images/rdpappman.jpg)
+![remoteapp](/images/rdpappman.JPG)
 
 Through RemoteApp Manager on Windows Server systems
 
